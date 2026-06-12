@@ -15,8 +15,8 @@
 
 #include <vector>
 #include <iterator>
-template<typename T>
-typename T::const_iterator	easyfind(const T& ref, int value)
+template<typename T, typename VAL>
+typename T::const_iterator	easyfind(const T& ref, VAL value)
 {
 	typename T::const_iterator	it;
 	for (it = ref.begin(); it != ref.end(); it++)

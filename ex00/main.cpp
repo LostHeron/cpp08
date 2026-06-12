@@ -12,39 +12,81 @@
 
 #include "easyfind.hpp"
 #include <sstream>
+#include <string>
 #include <vector>
 #include <iostream>
 #include <iterator>
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	std::stringstream	ss;
-	int					searched;
 
-	if (argc != 2)
 	{
-		std::cout << "usage: ./a.out value_to_search\n";
-		return (1);
-	}
-	ss << argv[1];
-	ss >> searched;
-	if (ss.fail())
-	{
-		std::cout << "could not convert '" << argv[1] << "' to type int\n";
-		return (1);
+		std::vector<int> v;
+		v.reserve(5);
+		v.push_back(10);
+		v.push_back(20);
+		v.push_back(30);
+
+		std::cout << "~~~~~~~~~~~~ vector of int : ~~~~~~~~~~~~~\n";
+		for (std::vector<int>::const_iterator it = v.begin(); it != v.end(); it++)
+		{
+			std::cout << *it << "\n";
+		}
+		std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+			
+		std::vector<int>::const_iterator it;
+		int		searched;
+
+		searched = 10;
+		it = ::easyfind(v, searched);
+		std::cout << "value searched : '" << searched << "':\n";
+		if (it != v.end())
+			std::cout << "found\n";
+		else
+			std::cout << "NOT found\n";
+
+		searched = 11;
+		std::cout << "value searched : '" << searched << "':\n";
+		it = ::easyfind(v, searched);
+		if (it != v.end())
+			std::cout << "found\n";
+		else
+			std::cout << "NOT found\n";
 	}
 
-	std::vector<int> v;
-	v.reserve(5);
-	for (int i = 1; i <= 5; i++)
-	{
-		v.push_back(i * 10);
-	}
+	std::cout << "\n\n\n";
 
-	std::vector<int>::const_iterator it = ::easyfind(v, searched);
-	std::cout << "value " << searched;
-	if (it != v.end())
-		std::cout << " was found\n";
-	else
-		std::cout << " was NOT found\n";
+	{
+		std::vector<std::string> v;
+		v.reserve(5);
+		v.push_back("coucou");
+		v.push_back("salut");
+		v.push_back("bonjour");
+
+		std::cout << "~~~~~~~~~~~~ vector of string : ~~~~~~~~~~~~~\n";
+		for (std::vector<std::string>::const_iterator it = v.begin(); it != v.end(); it++)
+		{
+			std::cout << *it << "\n";
+		}
+		std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+			
+		std::vector<std::string>::const_iterator it;
+		std::string			searched;
+
+		searched = "coucou";
+		it = ::easyfind(v, searched);
+		std::cout << "value searched : '" << searched << "':\n";
+		if (it != v.end())
+			std::cout << "found\n";
+		else
+			std::cout << "NOT found\n";
+
+		searched = "ahah";
+		std::cout << "value searched : '" << searched << "':\n";
+		it = ::easyfind(v, searched);
+		if (it != v.end())
+			std::cout << "found\n";
+		else
+			std::cout << "NOT found\n";
+	}
 }
