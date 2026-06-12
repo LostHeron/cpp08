@@ -11,8 +11,10 @@
 /* ************************************************************************** */
 
 #include "easyfind.hpp"
+#include <map>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 #include <iostream>
 #include <iterator>
@@ -88,5 +90,43 @@ int	main(void)
 			std::cout << "found\n";
 		else
 			std::cout << "NOT found\n";
+	}
+
+	std::cout << "\n\n\n";
+
+	{
+		std::map<std::string, std::string> v;
+		v["chien"] = "dog";
+		v["chat"] = "cat";
+		v["cheval"] = "horse";
+
+		std::cout << "~~~~~~~~~~~~ map of string,string : ~~~~~~~~~~~~~\n";
+		for (std::map<std::string, std::string>::const_iterator it = v.begin(); it != v.end(); it++)
+		{
+			std::cout << it->first << ":" << it->second << "\n";
+		}
+		std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+			
+		std::map<std::string, std::string>::const_iterator	it;
+
+		{
+			std::pair<const std::string, std::string>					searched("chien", "ahah");
+			it = ::easyfind(v, searched);
+			std::cout << "value searched : '" << searched.first << ":" << searched.second << "':\n";
+			if (it != v.end())
+				std::cout << "found\n";
+			else
+				std::cout << "NOT found\n";
+		}
+
+		{
+			std::pair<const std::string, std::string>					searched("chien", "dog");
+			std::cout << "value searched : '" << searched.first << ":" << searched.second << "':\n";
+			it = ::easyfind(v, searched);
+			if (it != v.end())
+				std::cout << "found\n";
+			else
+				std::cout << "NOT found\n";
+		}
 	}
 }
