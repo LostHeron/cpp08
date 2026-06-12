@@ -13,8 +13,20 @@
 #ifndef EASYFIND_HPP
 # define EASYFIND_HPP
 
-#include <vector>
-#include <iterator>
+template<typename T>
+typename T::const_iterator	easyfind(const T& ref, int value)
+{
+	typename T::const_iterator	it;
+	for (it = ref.begin(); it != ref.end(); it++)
+	{
+		if (*it == value)
+			return (it);
+	}
+	return (it);
+}
+
+/*
+
 template<typename T, typename VAL>
 typename T::const_iterator	easyfind(const T& ref, VAL value)
 {
@@ -26,5 +38,7 @@ typename T::const_iterator	easyfind(const T& ref, VAL value)
 	}
 	return (it);
 }
+
+*/
 
 #endif
