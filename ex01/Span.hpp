@@ -6,7 +6,7 @@
 /*   By: jweber <jweber@student.42Lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 17:02:24 by jweber            #+#    #+#             */
-/*   Updated: 2026/06/12 17:59:40 by jweber           ###   ########.fr       */
+/*   Updated: 2026/06/19 19:20:30 by jweber           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,13 @@ class Span
 		const int&		at(unsigned int i) const;
 		int&			at(unsigned int i);
 
-		void			addNumber(ssize_t newValue);
+		void			addNumber(int newValue);
+
+		template< class InputIt >
+		void			addNumberMultiple(InputIt first, InputIt last);
+
+		//void			addNumberMultiple(std::vector<int>::const_iterator first, std::vector<int>::const_iterator last);
+
 		unsigned int	longestSpan();
 		unsigned int	shortestSpan();
 
@@ -54,5 +60,7 @@ class Span
 };
 
 std::ostream&	operator<<(std::ostream& os, const Span& span);
+
+#include "Span.tpp"
 
 #endif

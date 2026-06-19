@@ -6,12 +6,13 @@
 /*   By: jweber <jweber@student.42Lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 17:21:24 by jweber            #+#    #+#             */
-/*   Updated: 2026/06/12 18:02:28 by jweber           ###   ########.fr       */
+/*   Updated: 2026/06/19 19:31:22 by jweber           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
 #include <algorithm>
+#include <iostream>
 #include <vector>
 
 Span::Span(unsigned int N)
@@ -37,9 +38,9 @@ Span::~Span()
 {
 }
 
-void	Span::addNumber(ssize_t newValue)
+void	Span::addNumber(int newValue)
 {
-	if (this->_data.size() == this->_data.capacity())
+	if (this->size() == this->capacity())
 	{
 		throw Span::Full();
 	}
@@ -49,42 +50,75 @@ void	Span::addNumber(ssize_t newValue)
 	}
 }
 
+/*
+void	Span::addNumberMultiple(std::vector<int>::const_iterator first, std::vector<int>::const_iterator last)
+{
+	for (std::vector<int>::const_iterator tmp = first; tmp != last; tmp++) 
+	{
+		this->addNumber(*tmp);
+	}
+}
+*/
+
+unsigned int getSpanBetweenTwoInt(int smaller, int greater);
+
 unsigned int	Span::shortestSpan()
 {
-	/*
+	unsigned int min;
 	if (this->_data.size() <= 1)
-
 		throw Span::OneElement();
-	std::vector<int> cpy = this->_data;
-	*/
-	return (3);
+
+	Span cpy(*this);
+	std::sort(cpy._data.begin(), cpy._data.end());
+	min = getSpanBetweenTwoInt(cpy.at(0), cpy.at(1));
+	for (size_t i = 1; i < cpy.size() - 1; i++)
+	{
+		unsigned int tmp = getSpanBetweenTwoInt(cpy.at(i), cpy.at(i + 1));
+		if (tmp < min)
+			min = tmp;
+	}
+	return (min);
 }
 
 unsigned int	Span::longestSpan()
 {
 	if (this->_data.size() <= 1)
 		throw Span::OneElement();
-	std::vector<int> cpy = this->_data;
-	std::sort(this->_data.begin(), this->_data.end());
 
+	Span cpy(*this);
+
+	std::sort(cpy._data.begin(), cpy._data.end());
+
+	return ( getSpanBetweenTwoInt(cpy.at(0), cpy.at(cpy.size() - 1)) );
+}
+
+
+unsigned int getSpanBetweenTwoInt(int smaller, int greater)
+{
+	/*
+	if (smaller > greater)
+		throw Span::
+	*/
 	unsigned int a;
 	unsigned int b;
-	if (this->_data.at(0) < 0 && this->_data.at(this->_data.size() - 1) < 0)
+	if (greater < 0)
 	{
-		a = - _data.at(0);
-		b = - _data.at(this->_data.size() - 1);
+		a = - smaller;
+		b = - greater;
+		return (a - b);
 	}
-	else if (this->_data.at(this->_data.size() - 1) < 0)
+	else if (smaller < 0)
 	{
-		a = - _data.at(0);
-		b = _data.at(this->_data.size() - 1);
+		a = - smaller;
+		b = greater;
+		return (b + a);
 	}
 	else
 	{
-		a = _data.at(0);
-		b = _data.at(this->_data.size() - 1);
+		a = smaller;
+		b = greater;
+		return (b - a);
 	}
-	return (b - a);
 }
 
 unsigned int	Span::capacity() const
@@ -120,12 +154,15 @@ int&			Span::at(unsigned int i)
 std::ostream&	operator<<(std::ostream& os, const Span& span)
 {
 	os << "Span(" << span.size() << "/" << span.capacity() << "): ";
-	for (unsigned int i = 0; i < span.size(); i++)
+	unsigned int i;
+	for (i = 0; i < span.size() && i < 50; i++)
 	{
 		if (i != 0)
 			os << ", ";
 		os << span.at(i);
 	}
+	if (!(i < 50))
+		std::cout << "...";
 	return (os);
 }
 
