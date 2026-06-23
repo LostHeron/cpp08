@@ -6,7 +6,7 @@
 /*   By: jweber <jweber@student.42Lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 07:46:06 by jweber            #+#    #+#             */
-/*   Updated: 2026/06/23 08:53:19 by jweber           ###   ########.fr       */
+/*   Updated: 2026/06/23 08:56:50 by jweber           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ typename MutantStack<_Type, _Container>::iterator MutantStack<_Type, _Container>
 
 template<typename _Type, typename _Container >
 // i do not get the point of the 'typename' just below
+// but apparently it is to tell the compiler to parse things differently
+// when calling YO<T>::x we might not be in scope correct scope yet, and so the
+// 'typename' is required, but i do not fully get it yet
 typename MutantStack<_Type, _Container>::iterator MutantStack<_Type, _Container>::end()
 {
 	return (this->c.end());
 }
-
 
 #endif
