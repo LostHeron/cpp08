@@ -6,7 +6,7 @@
 /*   By: jweber <jweber@student.42Lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 07:46:06 by jweber            #+#    #+#             */
-/*   Updated: 2026/06/23 08:56:50 by jweber           ###   ########.fr       */
+/*   Updated: 2026/06/23 08:59:29 by jweber           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ template<typename _Type, typename _Container >
 // but apparently it is to tell the compiler to parse things differently
 // when calling YO<T>::x we might not be in scope correct scope yet, and so the
 // 'typename' is required, but i do not fully get it yet
+// because the compiler does not know if YO<T>::x is a type or a static member variable
+// 'typename' explicitly tells the compiler that YO<T>::x is a type
 typename MutantStack<_Type, _Container>::iterator MutantStack<_Type, _Container>::end()
 {
 	return (this->c.end());
