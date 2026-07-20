@@ -12,16 +12,41 @@
 
 #include "MutantStack.hpp"
 #include <iostream>
+#include <stack>
+#include <vector>
 
 int	main(void)
 {
-	MutantStack<int> a;
+	MutantStack<int, std::vector<int> > a;
+	a.push(30);
+	a.push(20);
+	a.push(10);
+	a.push(-20);
+	a.push(-40);
 
-	a.push(3);
-	MutantStack<int> b;
+	MutantStack<int, std::vector<int> >::const_iterator it;
 
-	b = a;
-	std::cout << "b.top() = " << b.top() << "\n";
+	it = a.begin();
+	while (it < a.end())
+	{	
+		std::cout << *it << ", ";
+		it++;
+	}
+
+	std::cout <<"\n";
+	MutantStack<int, std::vector<int> >::const_reverse_iterator rit;
+	rit = a.rbegin();
+	while (rit < a.rend())
+	{	
+		std::cout << *rit << ", ";
+		rit++;
+	}
+
+	// a.push(3);
+	// MutantStack<int> b;
+	//
+	// b = a;
+	// std::cout << "b.top() = " << b.top() << "\n";
 }
 
 // given main
